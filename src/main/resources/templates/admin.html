@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — The Story Generator</title>
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+  <div class="container">
+    <h1>Presenter Controls</h1>
+
+    <section class="card">
+      <h2>Current Story Part</h2>
+      <div class="part-counter" id="part-counter">– / –</div>
+      <button class="btn btn-primary" id="advance-btn">Advance to Next Part</button>
+      <button class="btn btn-danger" id="reset-btn">Reset Current Story Part</button>
+    </section>
+
+    <hr>
+
+    <section class="card">
+      <button class="btn btn-primary" id="generate-btn">Generate Stories</button>
+      <div class="badge badge-neutral" id="status-badge">Checking…</div>
+      <button class="btn btn-danger" id="delete-btn">Delete Stories</button>
+    </section>
+
+    <div class="logout">
+      <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-outline">Log out</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" th:src="@{/js/admin.js}"></script>
+</body>
+</html>

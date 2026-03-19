@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: scaling-on-satisfaction
+  ai:
+    mistralai:
+      api-key: ${MISTRAL_AI_API_KEY}
+      chat:
+        options:
+          model: mistral-small-2506
+  security:
+    user:
+      name: username
+      password: password
+  session:
+    jdbc:
+      initialize-schema: never
+  threads:
+    virtual:
+      enabled: true
