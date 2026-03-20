@@ -16,6 +16,11 @@ const waitingEl = document.getElementById('waiting');
 const storyTextEl = document.getElementById('story-text');
 const voteButtonsEl = document.getElementById('vote-buttons');
 const voteBtns = document.querySelectorAll('.vote-btn');
+const indicatorStyleEl = document.getElementById('indicator-style');
+const indicatorModelEl = document.getElementById('indicator-model');
+
+const STYLE_EMOJIS = { dry: '😴', funny: '😄' };
+const MODEL_EMOJIS = { small: '🌱', large: '💰' };
 
 async function fetchPart() {
   try {
@@ -43,10 +48,13 @@ async function renderState(part) {
   try {
     const res = await fetch(CONTENT_URL);
     if (!res.ok) return;
-    const { totalParts, content, fragmentId } = await res.json();
+    const { totalParts, content, fragmentId, style, model } = await res.json();
 
     currentFragmentId = fragmentId;
     progressEl.textContent = `Part ${part} of ${totalParts}`;
+
+    indicatorStyleEl.textContent = STYLE_EMOJIS[style] ?? '';
+    indicatorModelEl.textContent = MODEL_EMOJIS[model] ?? '';
 
     if (!content) {
       showPreparing();
@@ -87,7 +95,7 @@ function showStoryText(content) {
   loadingEl.classList.remove('active');
   preparingEl.classList.remove('active');
   waitingEl.classList.remove('active');
-  storyTextEl.textContent = content;
+  storyTextEl.innerHTML = marked.parse(content);
   // Trigger fade-in on next frame
   requestAnimationFrame(() => storyTextEl.classList.add('visible'));
   if (!hasVoted) {

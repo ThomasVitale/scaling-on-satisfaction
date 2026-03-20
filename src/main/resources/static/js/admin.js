@@ -21,7 +21,8 @@ function updateUI(status) {
     generating = false;
     generateBtn.disabled = true;
     generateBtn.textContent = 'Generate Stories';
-    startPolling(POLL_INTERVAL_MS);
+    // All stories are ready — no need to keep polling until something changes
+    clearInterval(pollTimer);
   } else {
     statusBadge.textContent = `${status.storyCount} / ${status.requiredCount} stories`;
     statusBadge.className = 'badge badge-neutral';

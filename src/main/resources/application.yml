@@ -2,11 +2,18 @@ spring:
   application:
     name: scaling-on-satisfaction
   ai:
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY}
+      chat:
+        options:
+          model: claude-sonnet-4-6
+          temperature: 0.7
     mistralai:
       api-key: ${MISTRAL_AI_API_KEY}
       chat:
         options:
-          model: mistral-small-2506
+          model: mistral-medium-2508
+          temperature: 0.7
   security:
     user:
       name: username

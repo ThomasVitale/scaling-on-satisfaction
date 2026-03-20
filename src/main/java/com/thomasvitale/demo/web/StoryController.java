@@ -48,8 +48,10 @@ class StoryController {
     ContentResponse getContent() {
         int activePart = storyFragmentService.getActivePart();
         return storyFragmentService.getActiveFragment()
-                .map(f -> new ContentResponse(activePart, PromptProvider.TOTAL_PARTS, f.content(), f.id()))
-                .orElse(new ContentResponse(activePart, PromptProvider.TOTAL_PARTS, null, null));
+                .map(f -> new ContentResponse(activePart, PromptProvider.TOTAL_PARTS, f.content(), f.id(),
+                        f.style() != null ? f.style().name().toLowerCase() : null,
+                        f.model() != null ? f.model().name().toLowerCase() : null))
+                .orElse(new ContentResponse(activePart, PromptProvider.TOTAL_PARTS, null, null, null, null));
     }
 
     /**
@@ -67,7 +69,7 @@ class StoryController {
 
     record PartResponse(int part) {}
 
-    record ContentResponse(int part, int totalParts, String content, UUID fragmentId) {}
+    record ContentResponse(int part, int totalParts, String content, UUID fragmentId, String style, String model) {}
 
     record VoteRequest(@NotNull UUID fragmentId, @NotBlank String vote) {}
 

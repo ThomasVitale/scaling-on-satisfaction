@@ -50,6 +50,24 @@ The application will use it to access the Mistral AI API.
 export MISTRAL_AI_API_KEY=<YOUR-API-KEY>
 ```
 
+## Anthropic
+
+The application also consumes models from the [Anthropic](https://www.anthropic.com) platform.
+
+### Create an account
+
+Visit [console.anthropic.com](https://console.anthropic.com) and sign up for a new account.
+
+### Configure API Key
+
+In the Anthropic console, navigate to _API Keys_ and generate a new API key.
+Copy and securely store your API key on your machine as an environment variable.
+The application will use it to access the Anthropic API.
+
+```shell
+export ANTHROPIC_API_KEY=<YOUR-API-KEY>
+```
+
 ## Running the application
 
 Run the application.
