@@ -3,6 +3,8 @@
 ![dependencies](https://dependency-track.devex.thomasvitale.dev/api/v1/badge/vulns/project/scaling-on-satisfaction/main)
 ![policies](https://dependency-track.devex.thomasvitale.dev/api/v1/badge/violations/project/scaling-on-satisfaction/main)
 
+_Presented by Whitney Lee and Thomas Vitale at KubeCon+CloudNativeCon Europe 2026._
+
 As the old saying goes, “the customer is always right”. When it comes to GenAI, the end users of our apps are indeed always right, because we can’t fully trust an LLM on its own. What if we used a new mechanism to guide the routing and rollout of new application versions? How about user feedback? Imagine that: the more an app variant gets up-voted, the more traffic is sent to it.
 
 In this session, Whitney and Thomas demo a platform that enables app developers to define success criteria for business operations involving GenAI, and to capture users’ feedback using OpenTelemetry - including how to correlate it with other observability data. Then comes the twist. They’ll expand the platform using Flagger and Knative so that the users control the rollout and routing of new apps. And today, YOU are the user, the audience!
