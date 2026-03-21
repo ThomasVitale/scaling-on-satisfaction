@@ -14,7 +14,9 @@ public final class ChatModelObservationContentProcessor {
     private ChatModelObservationContentProcessor() {
     }
 
-    public record ChatMessage(String role, String content) {}
+    public record ChatMessage(String role, List<ChatMessagePart> parts) {}
+
+    public record ChatMessagePart(String type, String content) {}
 
     public static List<ChatMessage> prompt(ChatModelObservationContext context) {
         List<Message> messages = context.getRequest().getInstructions();
@@ -25,7 +27,9 @@ public final class ChatModelObservationContentProcessor {
         return messages.stream()
             .filter(message -> message instanceof AbstractMessage)
             .map(message -> (AbstractMessage) message)
-            .map(message -> new ChatMessage(message.getMessageType().getValue(), message.getText()))
+            .map(message -> new ChatMessage(
+                message.getMessageType().getValue(),
+                List.of(new ChatMessagePart("text", message.getText()))))
             .toList();
     }
 
@@ -44,7 +48,9 @@ public final class ChatModelObservationContentProcessor {
                 .map(Generation::getOutput)
                 .filter(output -> StringUtils.hasText(output.getText()))
                 .map(message -> (AbstractMessage) message)
-                .map(message -> new ChatMessage(message.getMessageType().getValue(), message.getText()))
+                .map(message -> new ChatMessage(
+                    message.getMessageType().getValue(),
+                    List.of(new ChatMessagePart("text", message.getText()))))
                 .toList();
     }
 
