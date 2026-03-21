@@ -43,7 +43,8 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
 
     implementation "io.arconia:arconia-opentelemetry-spring-boot-starter"
-    implementation 'net.ttddyy.observation:datasource-micrometer-spring-boot'
+    implementation "net.ttddyy.observation:datasource-micrometer-spring-boot"
+    implementation "io.micrometer:micrometer-tracing-bridge-otel"
 
     runtimeOnly "io.netty:netty-resolver-dns-native-macos:4.2.10.Final"
 
