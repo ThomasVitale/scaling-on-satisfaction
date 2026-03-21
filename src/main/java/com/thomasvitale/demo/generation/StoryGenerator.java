@@ -3,7 +3,9 @@ package com.thomasvitale.demo.generation;
 import org.springframework.ai.anthropic.AnthropicChatModel;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.observation.AdvisorObservationConvention;
+import org.springframework.ai.chat.client.advisor.observation.DefaultAdvisorObservationConvention;
 import org.springframework.ai.chat.client.observation.ChatClientObservationConvention;
+import org.springframework.ai.chat.client.observation.DefaultChatClientObservationConvention;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -29,17 +31,15 @@ public class StoryGenerator {
     public StoryGenerator(MistralAiChatModel mistralAiChatModel, 
                           AnthropicChatModel anthropicChatModel,
                           ObservationRegistry observationRegistry,
-                          ChatClientObservationConvention chatClientObservationConvention,
-                          AdvisorObservationConvention advisorObservationConvention,
                           PromptProvider promptProvider,
                           StoryFragmentRepository storyFragmentRepository
     ) {
-        this.chatClient = ChatClient.builder(mistralAiChatModel, observationRegistry, chatClientObservationConvention, advisorObservationConvention)
+        this.chatClient = ChatClient.builder(mistralAiChatModel, observationRegistry, new DefaultChatClientObservationConvention(), new DefaultAdvisorObservationConvention())
             .defaultOptions(ChatOptions.builder()
                 .maxTokens(300)
                 .build())
             .build();
-        this.anthropicChatClient = ChatClient.builder(anthropicChatModel, observationRegistry, chatClientObservationConvention, advisorObservationConvention)
+        this.anthropicChatClient = ChatClient.builder(anthropicChatModel, observationRegistry, new DefaultChatClientObservationConvention(), new DefaultAdvisorObservationConvention())
             .defaultOptions(ChatOptions.builder()
                 .maxTokens(300)
                 .build())
