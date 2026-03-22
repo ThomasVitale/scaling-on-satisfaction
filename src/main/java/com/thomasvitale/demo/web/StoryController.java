@@ -6,6 +6,8 @@ import com.thomasvitale.demo.story.StoryFragmentRepository;
 import com.thomasvitale.demo.story.StoryFragmentService;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/story")
 class StoryController {
+
+    private static final Logger logger = LoggerFactory.getLogger(StoryController.class);
 
     private final StoryFragmentService storyFragmentService;
     private final StoryFragmentRepository storyFragmentRepository;
@@ -63,6 +67,7 @@ class StoryController {
         if (fragment.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        logger.info("Received vote for fragment {}", fragment.get().id());
         evaluationService.evaluate(fragment.get(), request.vote());
         return ResponseEntity.ok().build();
     }

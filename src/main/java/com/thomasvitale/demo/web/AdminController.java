@@ -5,6 +5,8 @@ import com.thomasvitale.demo.generation.StoryGenerator;
 import com.thomasvitale.demo.story.ActiveStoryPart;
 import com.thomasvitale.demo.story.ActiveStoryPartRepository;
 import com.thomasvitale.demo.story.StoryFragmentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/admin")
 class AdminController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
     private static final int REQUIRED_STORY_COUNT = 20;
 
@@ -46,6 +50,7 @@ class AdminController {
     ResponseEntity<StatusResponse> advance() {
         int currentPart = getCurrentPart();
         if (currentPart < PromptProvider.TOTAL_PARTS) {
+            logger.info("Advancing to part {}", currentPart + 1);
             activeStoryPartRepository.save(new ActiveStoryPart(true, currentPart + 1));
         }
         return ResponseEntity.ok(buildStatus());
@@ -54,6 +59,7 @@ class AdminController {
     @PostMapping("/api/reset")
     @ResponseBody
     ResponseEntity<StatusResponse> reset() {
+        logger.info("Resetting to part 0");
         activeStoryPartRepository.save(new ActiveStoryPart(true, 0));
         return ResponseEntity.ok(buildStatus());
     }
@@ -65,13 +71,15 @@ class AdminController {
     @PostMapping("/api/generate")
     @ResponseBody
     ResponseEntity<Void> generate() {
-        Thread.ofVirtual().start(() -> storyGenerator.generate());
+        logger.info("Starting story generation");
+        Thread.ofVirtual().start(storyGenerator::generate);
         return ResponseEntity.accepted().build();
     }
 
     @PostMapping("/api/delete-stories")
     @ResponseBody
     ResponseEntity<StatusResponse> deleteStories() {
+        logger.info("Deleting all stories");
         storyFragmentRepository.deleteAll();
         return ResponseEntity.ok(buildStatus());
     }
