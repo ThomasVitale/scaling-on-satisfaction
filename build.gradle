@@ -46,7 +46,7 @@ dependencies {
     //implementation "net.ttddyy.observation:datasource-micrometer-spring-boot"
     implementation "io.micrometer:micrometer-tracing-bridge-otel"
 
-    runtimeOnly "io.netty:netty-resolver-dns-native-macos:4.2.10.Final"
+    runtimeOnly "io.netty:netty-resolver-dns-native-macos:4.2.12.Final"
 
     developmentOnly "org.springframework.boot:spring-boot-devtools"
 
