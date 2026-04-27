@@ -21,7 +21,7 @@ repositories {
 
 ext {
     set('arconiaVersion', "0.24.0")
-    set('springAiVersion', "2.0.0-M3")
+    set('springAiVersion', "2.0.0-M5")
 }
 
 dependencies {
