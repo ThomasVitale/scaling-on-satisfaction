@@ -48,7 +48,7 @@ jobs:
           ref: ${{ steps.pr.outputs.head_sha }}
 
       - name: Install Flox
-        uses: flox/install-flox-action@9428713e8d3883274c334b4b95b8830beebd24d2 # v2.3.0
+        uses: flox/install-flox-action@6e70b2624cea62b0f11ea4a28e719fe1c86c028b # v2.4.1
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
